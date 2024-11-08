@@ -1,3 +1,4 @@
+'''
 class Student:
     department = "Faculty of Science and Technology"
     count = 0
@@ -40,3 +41,164 @@ course.addStudent(student1)
 course.addStudent(student2)
 course.addStudent(student3)
 course.getStudents()
+'''
+
+# Inheritance lecture
+# Example 1: Single inheritance
+'''
+class Person:
+    def __init__(self, name, age, gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+
+    def introduce(self):
+        return f"I am {self.name}, I am  {self.age} year old {self.gender} and my id is {self.id}"
+
+class Student(Person):
+    def __init__(self, name, age, gender,id):
+        self.id = id
+        super().__init__(name, age, gender)
+
+    def introduce(self):
+       return f"I am {self.name}, I am  {self.age} year old {self.gender} and my id is {self.id}"
+
+# main program
+student = Student("Ram", "Male", 30, 7 )
+print(student.introduce())
+'''
+# Example 2: Multi level inheritance
+'''
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        pass
+
+class Mammal(Animal):
+    pass
+
+class Dog(Mammal):
+    def speak(self):
+        return f"The Dog name is {self.name} and speaks Bhau Bhau"
+
+# main program
+dog = Dog("Happy")
+print(dog.speak())
+'''
+
+# Example 3: Multi level inheritance
+
+'''
+class Person:
+    def __init__(self, name, age, gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+
+    def introduce(self):
+        pass
+
+class Student(Person):
+    def __init__(self, name, age, gender,student_id):
+        self.student_id = student_id
+        super().__init__(name, age, gender)
+
+    def introduce(self):
+       #return f"I am {self.name}, I am  {self.age} year old {self.gender} and my id is {self.student_id}
+        pass
+
+class Assistant(Student):
+    def __init__(self, name, age, gender,student_id, salary):
+        self.salary = salary
+        super().__init__(name, age, gender, student_id)
+
+    def introduce(self):
+        return f"I am {self.name}, I am  {self.age} year old {self.gender} and my student id is {self.student_id} and assistant id is {self.salary}"
+
+
+# main program
+assistant = Assistant("Ram", 30, "Male", 1, 3000)
+print(assistant.introduce())
+'''
+# Example 4 : Hierarchical inheritance
+'''
+class Person:
+    def __init__(self, name, age, gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+
+    def introduce(self):
+        pass
+
+class Student(Person):
+    def __init__(self, name, age, gender,student_id):
+        self.student_id = student_id
+        super().__init__(name, age, gender)
+
+    def introduce(self):
+       #return f"I am {self.name}, I am  {self.age} year old {self.gender} and my id is {self.student_id}
+        pass
+
+class Assistant(Student):
+    def __init__(self, name, age, gender,student_id, salary):
+        self.salary = salary
+        super().__init__(name, age, gender, student_id)
+
+    def introduce(self):
+        return f"I am {self.name}, I am  {self.age} year old {self.gender} and my student id is {self.student_id} and assistant id is {self.salary}"
+
+class Teacher(Person):
+    def __init__(self, name, age, gender, teacher_title):
+        self.teacher_title = teacher_title
+        super().__init__(name, age, gender)
+
+    def introduce(self):
+        return f"I am {self.name}, I am  {self.age} year old {self.gender} and my teacher title is {self.teacher_title}"
+
+# main program
+
+teacher = Teacher("Ram", "Male", 30, "Python")
+
+print(teacher.introduce())
+'''
+
+class Person:
+    def __init__(self, name, age, gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+
+    def introduce(self):
+        pass
+
+class Teacher(Person):
+    def __init__(self, name, age, gender, title):
+        super().__init__(name, age, gender)
+        self.title = title
+    def introduce(self):
+        pass
+
+class Assistant(Teacher):
+    def __init__(self,name, age, gender,title,salary):
+        super().__init__(name, age, gender, title)
+        self.salary = salary
+
+    def introduce(self):
+        return f"I am {self.name}, I am  {self.age} year old {self.gender} and my salary is {self.salary}"
+
+class part_time_teacher(Teacher):
+    def __init__(self,name, age, gender,title, hour):
+        super().__init__(name, age, gender,title)
+        self.hour = hour
+
+    def introduce(self):
+        return f"I am {self.name}, I am  {self.age} year old {self.gender} and my teacher title is {self.title}"
+
+# main program
+assistant = Assistant("Ram", "Male", 30, "Python", 3000)
+print(assistant.introduce())
+part_time_teacher = part_time_teacher("Ram", "Male", 30, "Python", 3)
+print(part_time_teacher.introduce())
