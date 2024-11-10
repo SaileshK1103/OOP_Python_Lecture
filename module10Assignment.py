@@ -35,6 +35,7 @@ elevator = Elevator(1, 7)
 elevator.go_to_floor(7)
 elevator.go_to_floor(5)
 '''
+from random import randint
 
 # 2. Extend the previous program by creating a Building class.
 # The initializer parameters for the class are the numbers of the bottom and top floors and the number of elevators in the building.
@@ -72,33 +73,34 @@ class Elevator:
             print(f"Elevator {self.current_floor} down")
 
 class Building:
-    def __init__(self,bottom_floor,top_floor):
+    def __init__(self,bottom_floor,top_floor, number_of_elevators):
         self.top_floor = top_floor
         self.bottom_floor = bottom_floor
+        self.number_of_elevators = number_of_elevators
         self.elevators = []
-    def add_elevators(self, elevator):
-        self.elevators.append(elevator)
+        for i in range(number_of_elevators):
+            self.elevators.append(Elevator(bottom_floor, top_floor))
 
-    def run_elevator(self, elevator_number, destination_floor):
-        if 0 <= elevator_number < len(self.elevators):
-            print(f"\nRunning elevator {elevator_number +1} to floor {destination_floor} ")
-            self.elevators[elevator_number].go_to_floor(destination_floor)
+    def run_elevator(self, number_of_elevator, destination_floor):
+        if 0 <= number_of_elevator< len(self.elevators):
+            print(f"\nRunning elevator{number_of_elevator +1} and the destination floor is {destination_floor} ")
+            self.elevators[number_of_elevator].go_to_floor(destination_floor)
         else:
             print("Invalid elevator number")
 
 # main program
-elevator1 = Elevator(1, 7)
-elevator2 = Elevator(0, 8)
-elevator3 = Elevator(1, 9)
-building = Building(1, 7)
-building.add_elevators(elevator1)
-building.add_elevators(elevator2)
-building.add_elevators(elevator3)
-building.run_elevator(0,9)
+building = Building(1, 7,3)
+building.run_elevator(0,6)
+building.run_elevator(1,6)
+building.run_elevator(2,5)
+building.run_elevator(3,7)
+
+
 '''
 # 3. Extend the program again by adding a method fire_alarm that does not receive any parameters and moves all elevators to the bottom floor.
 # Continue the main program by causing a fire alarm in your building.
 
+'''
 class Elevator:
     def __init__(self, bottom_floor, top_floor):
         self.bottom_floor = bottom_floor
@@ -127,29 +129,113 @@ class Elevator:
             print(f"Elevator {self.current_floor} down")
 
 class Building:
-    def __init__(self,bottom_floor,top_floor):
+    def __init__(self,bottom_floor,top_floor, number_of_elevator):
         self.top_floor = top_floor
         self.bottom_floor = bottom_floor
+        self.number_of_elevator = number_of_elevator
         self.elevators = []
-    def add_elevators(self, elevator):
-            self.elevators.append(elevator)
+        for i in range(number_of_elevator):
+            self.elevators.append(Elevator(bottom_floor, top_floor))
 
     def run_elevator(self, elevator_number, destination_floor):
         if 0 <= elevator_number < len(self.elevators):
-            print(f"\nRunning elevator {elevator_number +1} to floor {destination_floor} ")
+            print(f"\nRunning elevator{elevator_number +1} to the destination floor is {destination_floor} ")
             self.elevators[elevator_number].go_to_floor(destination_floor)
         else:
             print("Invalid elevator number")
 
-# main program
-elevator1 = Elevator(1, 7)
-elevator2 = Elevator(0, 8)
-elevator3 = Elevator(1, 9)
-building = Building(1, 7)
-building.add_elevators(elevator1)
-building.add_elevators(elevator2)
-building.add_elevators(elevator3)
+    def fire_alarm(self):
+        print("\nFire alarm activated! Moving all elevators to the bottom floor")
+        count = 1
+        for elevator in self.elevators:
+            print(f"\nMoving Elevator {count} to the bottom floor")
+            elevator.go_to_floor(self.bottom_floor)
+            count += 1
 
-#building.run_elevator(0,9)
-building.run_elevator(3,6)
-#building.run_elevator(2,5)
+# main program
+
+building = Building(1, 7,3)
+building.run_elevator(0,7)
+building.run_elevator(1,6)
+building.run_elevator(2,5)
+building.run_elevator(3,7)
+building.fire_alarm()
+'''
+
+# This exercise continues the previous car race exercise from the last exercise set.
+# Write a Race class that has the following properties: name, distance in kilometers and a list of cars participating in the race.
+# The class has an initializer that receives the name, kilometers, and car list as parameters and sets their values to the corresponding
+# properties in the class.
+# The class has the following methods:
+# hour_passes, which performs the operations done once per hour in the original exercise: generates a random change of speed for each car
+# and calls their drive method.
+# print_status, which prints out the current information of each car as a clear, formatted table.
+# race_finished, which returns True if any of the cars has reached the finish line, meaning that they have driven the entire distance of the race.
+# Write a main program that creates an 8000-kilometer race called Grand Demolition Derby. The new race is given a list of ten cars similarly to
+# the earlier exercise. The main program simulates the progressing of the race by calling the hour_passes in a loop, after which it uses the
+# race_finished method to check if the race has finished. The current status is printed out using the print_status method every ten hours and
+# then once more at the end of the race.
+
+''''
+class Car:
+    def __init__(self, registration_number, maximum_speed):
+        self.registration_number = registration_number
+        self.maximum_speed = maximum_speed
+        self.current_speed = 0
+        self.travelled_distance = 0
+    def accelerate(self, speed_change):
+        new_speed = self.current_speed + speed_change
+        if new_speed > self.maximum_speed:
+            self.current_speed = self.maximum_speed
+        elif new_speed < 0:
+            self.current_speed += 0
+        else:
+            self.current_speed = new_speed
+
+
+    def drive(self, hours):
+        self.travelled_distance += self.current_speed * hours
+
+class Race:
+    def __init__(self, name, distance_km,cars):
+        self.name = name
+        self.distance_km = distance_km
+        self.cars = cars
+
+    def hour_passes(self):
+        for car in self.cars:
+            # Random change in speed
+            speed_change = randint(-10,15)
+            car.accelerate(speed_change)
+            # Each car drive for 1 hour
+            car.drive(1)
+
+    def print_status(self):
+        print(f"\n{'Registration':<12} {'Max Speed':<12} {'Current Speed':<15} {'Travelled Distance':<20}")
+        print("="*60)
+        for car in self.cars:
+            print(f"{car.registration_number:<12} {car.maximum_speed:<12} {car.current_speed:<15} {car.travelled_distance:<20}")
+
+    def race_finished(self):
+        # Check if any car has travelled the required race distance
+        for car in self.cars:
+            if car.travelled_distance >= self.distance_km:
+                return True
+            else:
+                return False
+# main program
+cars = [Car(f"ABC-{i+1}", randint(100,200)) for i in range(10)]
+# Create a race with an 8000-kilometer distance
+race = Race("Grand Demolition Derby", 8000, cars)
+hours = 0
+while  not race.race_finished():
+    race.hour_passes()
+    hours += 1
+    # print status every 10 hours
+    if hours % 10 == 0:
+        print(f"\n--- Status after {hours} hours ---")
+        race.print_status()
+#Final status printout at the end of the race
+print(f"\n--- Final Status  after {hours} hours ---")
+race.print_status()
+'''

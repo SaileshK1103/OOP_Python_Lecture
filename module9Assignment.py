@@ -120,6 +120,7 @@ print(f"The travelled distance is {car.travelled_distance}")
     # Each car is made to drive for one hour. This is done with the drive method.
 # The race continues until one of the cars has advanced at least 10,000 kilometers.
 # Finally, the properties of each car are printed out formatted into a clear table.
+'''
 class Car:
     def __init__(self, registration_number, maximum_speed):
         self.registration_number = registration_number
@@ -168,5 +169,5 @@ print(f"\n{'Registration':<15}{'Max Speed (Km/h)':<20}{'Current Speed (Km/h)':<2
 print("=" * 75)
 for car in cars:
         print(f"{car.registration_number:<15}{car.maximum_speed:<20}{car.current_speed:<20}{car.travelled_distance:<20.1f}")
-
+'''
 
