@@ -164,7 +164,7 @@ teacher = Teacher("Ram", "Male", 30, "Python")
 
 print(teacher.introduce())
 '''
-
+'''
 class Person:
     def __init__(self, name, age, gender):
         self.name = name
@@ -202,3 +202,23 @@ assistant = Assistant("Ram", "Male", 30, "Python", 3000)
 print(assistant.introduce())
 part_time_teacher = part_time_teacher("Ram", "Male", 30, "Python", 3)
 print(part_time_teacher.introduce())
+'''
+
+'''
+import mysql.connector
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+@app.route('/sum')
+def calculate_sum():
+    args = request.args
+    try:
+        num1 = float(args.get('num1', 0))
+        num2 = float(args.get('num2', 0))
+        total_sum = num1 + num2
+        return str(total_sum)
+    except(TypeError, ValueError):
+        return "Invalid Input: *Please enter a valid number",400
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port= 5000, debug=True, use_reloader=False)
+'''
