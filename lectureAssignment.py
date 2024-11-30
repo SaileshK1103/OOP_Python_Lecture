@@ -1,4 +1,5 @@
 '''
+# Example
 class Student:
     department = "Faculty of Science and Technology"
     count = 0
@@ -165,6 +166,7 @@ teacher = Teacher("Ram", "Male", 30, "Python")
 print(teacher.introduce())
 '''
 '''
+# Example 5
 class Person:
     def __init__(self, name, age, gender):
         self.name = name
@@ -205,6 +207,7 @@ print(part_time_teacher.introduce())
 '''
 
 '''
+Example 5
 import mysql.connector
 from flask import Flask, request, jsonify
 
